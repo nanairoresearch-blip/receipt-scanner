@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="レシート管理">
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.png">
+  <title>レシート管理</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- ヘッダー -->
+    <header>
+      <h1>レシート管理</h1>
+      <button id="btn-settings" class="icon-btn" title="設定">&#9881;</button>
+    </header>
+
+    <!-- メイン画面 -->
+    <main id="screen-main">
+      <div id="capture-area">
+        <p class="hint">レシートを撮影してください</p>
+        <p class="hint-sub">長いレシートは複数回に分けて撮影できます</p>
+
+        <!-- 撮影済み画像プレビュー -->
+        <div id="preview-list"></div>
+
+        <!-- 撮影ボタン -->
+        <div class="btn-group">
+          <label id="btn-capture" class="btn btn-primary">
+            <span>&#128247; 撮影する</span>
+            <input type="file" accept="image/*" capture="environment" id="input-camera" hidden>
+          </label>
+          <label id="btn-gallery" class="btn btn-secondary">
+            <span>&#128196; ギャラリーから選択</span>
+            <input type="file" accept="image/*" id="input-gallery" multiple hidden>
+          </label>
+        </div>
+
+        <!-- 送信ボタン（画像がある場合のみ表示） -->
+        <button id="btn-submit" class="btn btn-success" hidden>
+          &#9989; アップロード＆自動分類
+        </button>
+
+        <!-- 画像クリアボタン -->
+        <button id="btn-clear" class="btn btn-danger" hidden>
+          &#128465; クリア
+        </button>
+      </div>
+
+      <!-- 処理中表示 -->
+      <div id="processing" hidden>
+        <div class="spinner"></div>
+        <p id="processing-text">処理中...</p>
+      </div>
+
+      <!-- 結果表示 -->
+      <div id="result" hidden>
+        <div id="result-content"></div>
+        <button id="btn-new" class="btn btn-primary">次のレシートを撮影</button>
+      </div>
+    </main>
+
+    <!-- 設定画面 -->
+    <div id="screen-settings" hidden>
+      <h2>設定</h2>
+      <div class="setting-item">
+        <label for="input-gas-url">Google Apps Script URL</label>
+        <input type="url" id="input-gas-url" placeholder="https://script.google.com/macros/s/...">
+      </div>
+      <div class="btn-group">
+        <button id="btn-save-settings" class="btn btn-primary">保存</button>
+        <button id="btn-back" class="btn btn-secondary">戻る</button>
+      </div>
+    </div>
+
+    <!-- 履歴表示 -->
+    <div id="history-section">
+      <h2>最近のアップロード</h2>
+      <div id="history-list"></div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
