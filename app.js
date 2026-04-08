@@ -179,10 +179,10 @@
       // Base64部分だけ抽出
       const base64 = merged.split(',')[1];
 
-      // GASへ送信
+      // GASへ送信（CORS回避のためtext/plainで送信 - GAS側でJSONパース）
       const response = await fetch(state.gasUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
         body: JSON.stringify({
           image: base64,
           mimeType: 'image/jpeg',
